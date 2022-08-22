@@ -1,5 +1,5 @@
 require('dotenv').config();
-import express from 'express';
+import express, {Request, Response} from 'express';
 import bodyParser from 'body-parser';
 import { filterImageFromURL, deleteLocalFiles } from './util/util';
 
@@ -12,8 +12,8 @@ import { filterImageFromURL, deleteLocalFiles } from './util/util';
   const port = process.env.PORT || 8082;
   // Use the body parser middleware for post requests
   app.use(bodyParser.json());
-  app.get('/filteredimage', async (req, res) => {
-    let { image_url } = req.query
+  app.get('/filteredimage', async (req:Request, res:Response) => {
+    let { image_url } :{image_url:string} = req.query
     if (!image_url) {
       return res.status(422).send("The query param image_url must have a value")
     }
